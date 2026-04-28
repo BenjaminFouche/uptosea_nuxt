@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { ApiBoatService } from '../services/apiBoat';
+import { useAuthStore } from './useAuthStore';
+
 
 const normalizeText = (text) => {
     if (!text) return '';

@@ -131,20 +131,20 @@
 </template>
 
 <script setup>
-import {computed, ref, onMounted, watch} from 'vue'
-import {useAuth} from '../../composables/useAuth.js'
+import { computed, ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuth } from '../../composables/useAuth.js'
 import Default from '../../layouts/default.vue'
 import UiButton from '../../components/ui/UiButton.vue'
-import {ApiBookingService} from '../../services/apiBooking.js'
+import { ApiBookingService } from '../../services/apiBooking.js'
 import BookingCard from '../../components/user/BookingCard.vue'
 import BookingModal from '../../components/boat-detail/BookingModal.vue'
 import MyBookingCard from '../../components/user/MyBookingCard.vue'
 import CancelBookingModal from '../../components/user/CancelBookingModal.vue'
-import {useRouter} from 'vue-router'
-import {useAuthStore} from '../../stores/useAuthStore.js'
-import {isValidCategoryUrl, urlToCategory} from "@/utils/categoryUrlUtils.js";
-import {useBookingStore} from "@/stores/useBookingStore.js";
-import {useBoatsStore} from "@/stores/useBoatsStore.js";
+import { useAuthStore } from '../../stores/useAuthStore.js' // Ton store est bien importé ici
+import { isValidCategoryUrl, urlToCategory } from "@/utils/categoryUrlUtils.js";
+import { useBookingStore } from "@/stores/useBookingStore.js";
+import { useBoatsStore } from "@/stores/useBoatsStore.js";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import { useAnomalyStore } from '@/stores/useAnomalyStore.js';
 import AnomalyModal from '@/components/user/proprietaire/AnomalyModal.vue';
@@ -152,7 +152,7 @@ import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 import UiToast from "@/components/ui/UiToast.vue";
 
 const router = useRouter()
-const {user, isLoading: authLoading, token} = useAuth()
+const { user, isLoading: authLoading } = useAuth() // Plus besoin de sortir le token d'ici
 const bookingsStore = useBookingStore()
 const isLoading = computed(() => bookingsStore.isLoading)
 
@@ -209,7 +209,8 @@ const tabs = [
 
 const filters = [
   {label: 'En attente de paiement', value: 'attente_paiement'},
-  {label: 'Réservation payée', value: 'payee'},]
+  {label: 'Réservation payée', value: 'payee'},
+]
 
 const getTabCount = (tabValue) => {
   if (!bookings.value || !bookings.value.length) return 0;
@@ -441,7 +442,10 @@ const cancelBooking = async () => {
   confirmationCode.value = selectedBooking.value.code;
 
   try {
-    const authToken = typeof token === 'object' && token?.value ? token.value : token || localStorage.getItem('token');
+    // 💡 REMPLACEMENT ICI : On utilise directement le store d'authentification
+    const authStore = useAuthStore();
+    const authToken = authStore.token;
+
     if (!authToken) throw new Error('Token d\'authentification manquant');
 
     await ApiBookingService.cancelBooking(authToken, selectedBooking.value.code);
@@ -521,7 +525,7 @@ const toggleFilter = (filterValue) => {
 
 const redirectToPaymentPage = (booking) => {
   if (!booking || !booking.code) return;
-  MapsTo(`/reservations/${booking.code}/paiement`);
+  navigateTo(`/reservations/${booking.code}/paiement`);
 };
 
 const closeEditModal = () => {

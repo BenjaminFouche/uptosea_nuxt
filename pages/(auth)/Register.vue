@@ -465,7 +465,7 @@ const handleSubmit = async () => {
     const response = await ApiAuthService.register(formattedData)
 
     // Affichage d'un message de succès
-    MapsTo('/confirmation')
+    await navigateTo('/registrationconfirm')
   } catch (error) {
     console.error('Erreur inscription:', error)
     // Gestion des erreurs de l'API

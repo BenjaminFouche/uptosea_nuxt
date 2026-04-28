@@ -303,7 +303,7 @@ export default {
       const actionClicked = args.event.originalData;
 
       if (actionClicked) {
-        MapsTo({ name: 'ActionsBoatDetails', params: { actionCode: actionClicked.code } });
+        navigateTo({ name: 'ActionsBoatDetails', params: { actionCode: actionClicked.code } });
       }
     };
 

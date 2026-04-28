@@ -167,9 +167,9 @@ const boatImage = computed(() => {
 });
 
 // Redirection vers "mes documents"
-function goToDocuments() {
-  MapsTo({
-    name: 'BoatDocument',
+async function goToDocuments() {
+  await navigateTo({
+    path: '/proprietaire/BoatDocument', // Chemin direct vers la page
     query: {
       boatCode: props.boat.code
     }
@@ -177,10 +177,12 @@ function goToDocuments() {
 }
 
 // Redirection vers "Anomalie"
-function goToAnomalie() {
-  MapsTo({
-    name: 'BoatAnomalies',
-    query: { boatCode: props.boat.code }
+async function goToAnomalie() {
+  await navigateTo({
+    path: '/proprietaire/BoatAnomalies', // Chemin direct vers la page
+    query: {
+      boatCode: props.boat.code
+    }
   });
 }
 

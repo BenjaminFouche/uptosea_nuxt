@@ -142,7 +142,7 @@ onMounted(() => {
 
 // Retire le filtre
 const clearFilter = () => {
-  MapsTo({ name: 'BoatDocument' });
+  navigateTo({ name: 'BoatDocument' });
 };
 
 // Gestion du modal

@@ -237,7 +237,7 @@ const handleEnd = (event) => {
  * Gère la navigation vers les détails d'un bateau
  */
 const handleViewDetails = (boat) => {
-  MapsTo({
+  navigateTo({
     name: 'BoatDetail',
     params: { code: boat.code }
   });

@@ -170,7 +170,7 @@ const search = async () => {
   if (filters.dateFrom) query.debut = filters.dateFrom; else delete query.debut;
   if (filters.dateTo) query.fin = filters.dateTo; else delete query.fin;
 
-  await navigateTo({ path: route.path, query }); // Changement de MapsTo()
+  await navigateTo({ path: route.path, query }); // Changement de await navigateTo()
 
   try {
     const currentStoreFilters = boatsStore.activeFilters || {};

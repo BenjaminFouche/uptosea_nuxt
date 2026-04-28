@@ -113,14 +113,14 @@ const selectCategory = (categoryName) => {
     articlesStore.filterArticlesByCategory(categoryName);
 
     // Naviguer vers la page des articles filtrés
-    MapsTo({
+    navigateTo({
       name: 'Articles',
       query: { categorie: categoryName }
     });
   } else {
     // Réinitialiser les filtres
     articlesStore.resetFilters();
-    MapsTo({ name: 'Articles' });
+    navigateTo({ name: 'Articles' });
   }
 };
 
@@ -131,7 +131,7 @@ const selectSubCategory = (categoryName, subCategoryName) => {
   articlesStore.filterArticlesBySubCategory(subCategoryName);
 
   // Naviguer vers la page des articles filtrés
-  MapsTo({
+  navigateTo({
     name: 'Articles',
     query: {
       categorie: categoryName,
@@ -149,7 +149,7 @@ const selectSubSubCategory = (categoryName, subCategoryName, subSubCategoryName)
   articlesStore.filterArticlesBySubSubCategory(subSubCategoryName);
 
   // Naviguer vers la page des articles filtrés
-  MapsTo({
+  navigateTo({
     name: 'Articles',
     query: {
       categorie: categoryName,
@@ -180,7 +180,7 @@ const handleSelectChange = (event) => {
   const value = event.target.value;
   if (!value) {
     articlesStore.resetFilters();
-    MapsTo({ name: 'Articles' });
+    navigateTo({ name: 'Articles' });
     return;
   }
 

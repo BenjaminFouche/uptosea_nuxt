@@ -189,7 +189,7 @@ const handleTabChange = async (tabName) => {
   const currentQuery = { ...route.query };
 
   if (tabName === 'Tous') {
-    // Remplacement de MapsTo par navigateTo
+    // Remplacement de await navigateTo par navigateTo
     await navigateTo({ path: '/bateaux', query: currentQuery });
   } else {
     const slug = tabToSlugMapping[tabName];

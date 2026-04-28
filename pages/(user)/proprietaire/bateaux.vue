@@ -189,11 +189,11 @@ onMounted(async () => {
 
 // Gestion des actions
 const handleViewDetails = (boat) => {
-  MapsTo(`/bateaux/${boat.code}`);
+  navigateTo(`/bateaux/${boat.code}`);
 };
 
 const handleViewActions = (boat) => {
-  MapsTo(`/proprietaire/bateau/${boat.code}/actions`);
+  navigateTo(`/proprietaire/bateau/${boat.code}/actions`);
 };
 
 const handleReserve = (boat) => {

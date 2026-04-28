@@ -78,12 +78,12 @@ const message = ref('');
 
 // Rediriger vers la page d'accueil
 const redirectToHome = () => {
-  MapsTo('/');
+  navigateTo('/');
 };
 
 // Rediriger vers la page de connexion
 const redirectToLogin = () => {
-  MapsTo('/login');
+  navigateTo('/login');
 };
 
 // Vérifier l'email au chargement de la page

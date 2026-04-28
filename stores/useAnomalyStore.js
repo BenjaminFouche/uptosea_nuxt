@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { ApiAnomalyService } from '../services/apiAnomaly';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from './useAuthStore';
 
 export const useAnomalyStore = defineStore('anomaly', () => {
     const router = useRouter();
@@ -58,7 +59,8 @@ export const useAnomalyStore = defineStore('anomaly', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (!token) {
                 return;
             }
@@ -116,7 +118,8 @@ export const useAnomalyStore = defineStore('anomaly', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             const payload = {
                 titre: formData.titre,
                 description: [formData.description],
@@ -154,7 +157,8 @@ export const useAnomalyStore = defineStore('anomaly', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             const idToUpdate = anomaly.id || anomaly.code || anomaly.reference;
 
             if (!idToUpdate || idToUpdate === 'N/A' || idToUpdate === 'En cours...') {
@@ -197,7 +201,8 @@ export const useAnomalyStore = defineStore('anomaly', () => {
     async function deleteAnomaly(id, boatCode) {
         isLoading.value = true;
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             await ApiAnomalyService.deleteAnomaly(token, id);
             await fetchAnomalies(boatCode);
         } catch (err) {

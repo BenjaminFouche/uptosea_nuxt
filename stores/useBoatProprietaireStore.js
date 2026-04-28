@@ -1,7 +1,8 @@
-import {defineStore} from 'pinia';
-import {computed, ref} from 'vue';
-import {ApiBoatProprietaireService} from '../services/apiBoatProprietaire';
-import {ApiAnomalyService} from '@/services/apiAnomaly.js';
+import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
+import { ApiBoatProprietaireService } from '../services/apiBoatProprietaire';
+import { ApiAnomalyService } from '@/services/apiAnomaly.js';
+import { useAuthStore } from './useAuthStore';
 
 export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
     // Etat
@@ -15,8 +16,13 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
     const selectedMonth = ref(null);
     const selectedYear = ref(new Date().getFullYear());
 
-    // --- GETTERS (Computed) ---
+    // 2. FONCTION UTILITAIRE POUR RECUPERER LE TOKEN PROPREMENT
+    const getToken = () => {
+        const authStore = useAuthStore();
+        return authStore.token;
+    };
 
+    // --- GETTERS (Computed) ---
     const hasBoats = computed(() => boats.value.length > 0);
 
     const parseApiDate = (dateStr) => {
@@ -33,9 +39,7 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         }
     };
 
-    /**
-     * Calcul des stats pour dashboard
-     */
+    // ... (Le code de boatsWithStats, totalRentals, totalAnomalies, totalCommission reste strictement identique) ...
     const boatsWithStats = computed(() => {
         const now = new Date();
 
@@ -142,7 +146,8 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+            // 3. REMPLACEMENT DE LOCALSTORAGE
+            const token = getToken();
             if (!token) throw new Error("Token d'authentification manquant.");
 
             const currentYear = selectedYear.value;
@@ -188,9 +193,10 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const token = localStorage.getItem('token');
+            // 3. REMPLACEMENT DE LOCALSTORAGE
+            const token = getToken();
             const response = await ApiBoatProprietaireService.getBoatProprietaire(token);
-            boats.value = response.boats;
+            boats.value = response.boats || [];
         } catch (err) {
             error.value = err instanceof Error ? err.message : 'Erreur lors du chargement des bateaux';
         } finally {
@@ -205,7 +211,8 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const token = localStorage.getItem('token');
+            // 3. REMPLACEMENT DE LOCALSTORAGE
+            const token = getToken();
             const response = await ApiBoatProprietaireService.getActionByBoat(code, token);
             actionsByBoat.value[code] = response;
             return response;
@@ -221,7 +228,7 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         isLoading.value = true;
         error.value = null;
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             const response = await ApiBoatProprietaireService.getActionDetail(code, token);
             actionDetails.value[code] = response;
             return response;
@@ -243,10 +250,9 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         const {formData, files} = payload;
 
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             if (!token) throw new Error("Token manquant");
 
-            // Création de l'action
             const response = await ApiBoatProprietaireService.createBoatAction(token, formData);
 
             const realActionData = (response.elements && response.elements.length > 0)
@@ -255,14 +261,12 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
 
             const actionCode = realActionData.code;
 
-            // Upload des images
             if (files && files.length > 0 && actionCode) {
                 for (const file of files) {
                     await ApiBoatProprietaireService.uploadActionImage(token, actionCode, file);
                 }
             }
 
-            // Refresh des données
             if (formData.bateauId) {
                 delete actionsByBoat.value[formData.bateauId];
                 await fetchActionsByBoat(formData.bateauId);
@@ -286,19 +290,16 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         const {formData, files} = payload;
 
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
 
-            // Mise à jour de l'action
             await ApiBoatProprietaireService.updateBoatAction(token, actionCode, formData);
 
-            // upload des fichier
             if (files && files.length > 0) {
                 for (const file of files) {
                     await ApiBoatProprietaireService.uploadActionImage(token, actionCode, file);
                 }
             }
 
-            // Fetch Boat
             if (formData.bateauId) {
                 delete actionsByBoat.value[formData.bateauId];
                 delete actionDetails.value[actionCode];
@@ -320,7 +321,7 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             if (!token) throw new Error("Token manquant");
 
             const uploadPromises = files.map(file =>
@@ -345,7 +346,6 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         }
     }
 
-
     async function refreshBoats() {
         boats.value = [];
         await fetchBoats();
@@ -359,22 +359,17 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
     }
 
     return {
-        // State & UI
         boats,
         actionsByBoat,
         isLoading,
         error,
-        // Getters
         hasBoats,
         boatsWithStats,
         totalRentals,
         totalAnomalies,
         totalCommission,
-
         selectedMonth,
         selectedYear,
-
-        // Actions
         fetchDashboardData,
         fetchBoats,
         fetchActionsByBoat,
@@ -385,5 +380,4 @@ export const useBoatProprietaireStore = defineStore('boatProprietaire', () => {
         createBoatAction,
         updateBoatAction
     };
-
 });

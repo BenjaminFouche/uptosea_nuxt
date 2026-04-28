@@ -210,11 +210,11 @@ function goBack() {
 }
 
 function goToRegister() {
-  MapsTo('/register')
+  navigateTo('/register')
 }
 
 function goToForgotPassword() {
-  MapsTo('/forgot-password')
+  navigateTo('/forgot-password')
 }
 
 const handleGoogleCallback = async (response) => {

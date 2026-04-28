@@ -342,14 +342,14 @@ const processBookingSubmission = (bookingData) => {
 
 const goToLogin = () => {
   const currentPath = route.fullPath;
-  MapsTo({
+  navigateTo({
     path: '/login',
     query: { redirect: currentPath }
   });
 };
 
 const goBackToList = () => {
-  MapsTo('/bateaux');
+  navigateTo('/bateaux');
 };
 </script>
 

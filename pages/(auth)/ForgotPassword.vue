@@ -131,7 +131,7 @@ function goBack() {
 }
 
 function goToLogin() {
-    MapsTo('/login')
+    navigateTo('/login')
 }
 </script>
 

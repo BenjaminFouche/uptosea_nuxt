@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import apiArticle from '../services/apiArticle';
+import { useAuthStore } from './useAuthStore';
 
 export const useArticlesStore = defineStore('articles', () => {
     const allArticles = ref([]);

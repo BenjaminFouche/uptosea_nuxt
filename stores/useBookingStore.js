@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { ApiBoatService } from '../services/apiBoat';
 import { ApiBookingService } from '../services/apiBooking';
+import { useAuthStore } from './useAuthStore';
+
 // import { useRouter } from 'vue-router';
 
 export const useBookingStore = defineStore('booking', () => {
@@ -42,7 +44,8 @@ export const useBookingStore = defineStore('booking', () => {
         itemsPerPage.value = limit;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (token) {
                 const response = await ApiBookingService.getBookings(token);
 
@@ -65,7 +68,7 @@ export const useBookingStore = defineStore('booking', () => {
                 updateDisplayedBookings();
             } else {
                 error.value = "Vous devez être connecté pour voir vos réservations";
-                MapsTo('/auth/login');
+                await navigateTo('/login');
             }
         } catch (err) {
             error.value = "Impossible de charger vos réservations";
@@ -134,7 +137,8 @@ export const useBookingStore = defineStore('booking', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (token) {
                 const response = await ApiBookingService.getPaymentLink(token, bookingId);
 
@@ -149,7 +153,7 @@ export const useBookingStore = defineStore('booking', () => {
                 return linkPayment.value;
             } else {
                 error.value = "Vous devez être connecté pour procéder au paiement";
-                MapsTo('/auth/login');
+                await navigateTo('/login');
                 return null;
             }
         } catch (err) {
@@ -165,13 +169,14 @@ export const useBookingStore = defineStore('booking', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (token) {
                 const response = await ApiBookingService.checkPaymentStatus(token, bookingId);
                 return response;
             } else {
                 error.value = "Vous devez être connecté pour vérifier le paiement";
-                MapsTo('/auth/login');
+                await navigateTo('/login');
                 return null;
             }
         } catch (err) {
@@ -197,7 +202,8 @@ export const useBookingStore = defineStore('booking', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (!token) {
                 throw new Error("Vous devez être connecté pour accéder à cette réservation");
             }
@@ -235,7 +241,8 @@ export const useBookingStore = defineStore('booking', () => {
         error.value = null;
 
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (!token) {
                 throw new Error("Vous devez être connecté pour effectuer le paiement");
             }
@@ -268,7 +275,8 @@ export const useBookingStore = defineStore('booking', () => {
      */
     async function refreshSingleBooking(bookingId) {
         try {
-            const token = localStorage.getItem('token');
+          const authStore = useAuthStore();
+const token = authStore.token;
             if (!token) return;
 
             const response = await ApiBookingService.getBookingById(token, bookingId);

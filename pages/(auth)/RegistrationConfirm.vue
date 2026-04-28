@@ -41,11 +41,11 @@ import HeaderModal from "@/components/common/HeaderModal.vue";
 const router = useRouter()
 
 function goToExplore() {
-  MapsTo('/login')
+  navigateTo('/login')
 }
 
 function goToProfile() {
-  MapsTo('/user/profile')
+  navigateTo('/user/profile')
 }
 </script>
 

@@ -1856,7 +1856,7 @@ const confirmDevisReservation = () => {
   });
 
   closeModal();
-  MapsTo('/reservation')
+  navigateTo('/reservation')
 };
 
 const confirmOwnerReservation = () => {
@@ -1867,7 +1867,7 @@ const confirmOwnerReservation = () => {
     requiresLogin: false
   });
 
-  MapsTo({
+  navigateTo({
     path: `/reservations/${formData.reservationId}/validation-paiement`,
     query: {isOwner: true}
   });
@@ -1946,7 +1946,7 @@ const submitBooking = async () => {
         });
 
         if(reservationType.value === 'multi') {
-          MapsTo('/reservation')
+          await navigateTo('/reservation')
         }
         closeModal();
       } catch (e) {
@@ -1978,7 +1978,7 @@ const submitBooking = async () => {
           });
 
           if(reservationType.value === 'multi') {
-            MapsTo('/reservation')
+            await navigateTo('/reservation')
           }
           closeModal();
         } else {

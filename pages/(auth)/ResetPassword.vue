@@ -113,7 +113,7 @@ onMounted(() => {
     token.value = route.query.token
   }
   if (!token.value) {
-    MapsTo('/login')
+    navigateTo('/login')
   }
 })
 
@@ -154,7 +154,7 @@ function goBack() {
 
 // Redirection vers la page de connexion
 function goToLogin() {
-  MapsTo('/login')
+  navigateTo('/login')
 }
 
 // Soumission du formulaire
