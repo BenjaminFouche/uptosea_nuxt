@@ -114,6 +114,14 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import ImageUpload from '@/components/ui/UiFilesUpload.vue'
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: [
+    { label: 'Mes bateaux', to: '/proprietaire/bateaux' },
+    { label: 'Mes documents' }
+  ]
+})
+
 const boatStore = useBoatProprietaireStore();
 const route = useRoute();
 const router = useRouter();

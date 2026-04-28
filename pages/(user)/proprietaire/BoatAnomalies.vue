@@ -99,6 +99,14 @@ import UiButton from '@/components/ui/UiButton.vue';
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: [
+    { label: 'Mes bateaux', to: '/proprietaire/bateaux' },
+    { label: 'Anomalies' }
+  ]
+})
+
 const route = useRoute();
 const store = useAnomalyStore();
 

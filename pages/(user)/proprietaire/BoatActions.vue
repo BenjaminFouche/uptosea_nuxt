@@ -142,6 +142,14 @@ import UiButton from "@/components/ui/UiButton.vue";
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 import UiToast from "@/components/ui/UiToast.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: [
+    { label: 'Mes bateaux', to: '/proprietaire/bateaux' },
+    { label: 'Gestion des activités' }
+  ]
+})
+
 export default {
   name: 'BoatActions',
   components: { UiToast, Breadcrumbs, UiButton, LoadingSpinner, MbscEventcalendar, ActionModal },

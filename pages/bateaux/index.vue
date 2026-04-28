@@ -109,6 +109,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  breadcrumb: 'Bateaux'
+})
+
 // Plus besoin d'imports manuels grâce à l'auto-import Nuxt !
 const route = useRoute();
 const boatsStore = useBoatsStore();

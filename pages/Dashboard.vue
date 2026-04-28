@@ -86,6 +86,11 @@ import { useBoatProprietaireStore } from '@/stores/useBoatProprietaireStore';
 import DashboardBoatCard from '@/components/dashboard/DashboardBoatCard.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: 'Tableau de bord'
+})
+
 const store = useBoatProprietaireStore();
 
 watch(() => store.selectedYear, async (newYear, oldYear) => {

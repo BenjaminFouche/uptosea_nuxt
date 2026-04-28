@@ -17,6 +17,13 @@ export default defineNuxtConfig({
     }
   },
 
+  routeRules: {
+    // Redirections permanentes (code 301)
+    '/': { redirect: '/bateaux' },
+    '/boats': { redirect: '/bateaux' },
+    '/app': { redirect: '/bateaux' }
+  },
+
   // 1. Déclaration des modules (Pinia et PrimeVue)
   modules: [
     '@pinia/nuxt',

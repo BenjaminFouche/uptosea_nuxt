@@ -282,6 +282,11 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import ImageUpload from '@/components/ui/UiFilesUpload.vue'
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: 'Mon profil'
+})
+
 const { user: authUser, isLoading, token } = useAuth()
 
 // Données utilisateur détaillées de l'API

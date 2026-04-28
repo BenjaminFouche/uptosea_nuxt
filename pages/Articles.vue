@@ -49,6 +49,9 @@ import { useArticlesStore } from '@/stores/useArticlesStore';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  breadcrumb: 'Nos articles'
+})
 export default {
   name: 'Articles',
   components: {

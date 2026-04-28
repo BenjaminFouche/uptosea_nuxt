@@ -103,6 +103,13 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import ReservationModal from "../../../components/boat-detail/BookingModal.vue"
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: [
+    { label: 'Mes bateaux' }
+  ]
+})
+
 const router = useRouter();
 const boatStore = useBoatProprietaireStore();
 const isLoading = computed(() => boatStore.isLoading);

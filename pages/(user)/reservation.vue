@@ -151,6 +151,11 @@ import AnomalyModal from '@/components/user/proprietaire/AnomalyModal.vue';
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 import UiToast from "@/components/ui/UiToast.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: 'Mes réservations'
+})
+
 const router = useRouter()
 const { user, isLoading: authLoading } = useAuth() // Plus besoin de sortir le token d'ici
 const bookingsStore = useBookingStore()
