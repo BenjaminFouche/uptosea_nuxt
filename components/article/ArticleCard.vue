@@ -35,7 +35,7 @@
 
           <div class="article-card__download-zone">
             <a v-if="downloadLink" :href="downloadLink" target="_blank" class="article-card__download-btn" title="Télécharger la fiche">
-              <img src="/src/assets/svg/download-icon.svg" alt="Download">
+              <img src="/assets/svg/download-icon.svg" alt="Download">
             </a>
           </div>
 

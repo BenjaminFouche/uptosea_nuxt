@@ -229,8 +229,7 @@ const parseUrlFilters = () => {
 }
 
 const updateUrlAndNavigate = async () => {
-  let routeName = 'BoatsList';
-  let params = {};
+  let routePath = '/bateaux'; // Chemin par défaut
   let query = { ...route.query };
 
   const nbCats = selectedCategoryCodes.value.length;
@@ -241,17 +240,17 @@ const updateUrlAndNavigate = async () => {
     if (nbCats === 1) {
       const slug = getSlugFromCode(selectedCategoryCodes.value[0]);
       if (slug) {
-        routeName = 'BoatsListFiltered';
-        params = { slug: slug };
+        routePath = `/bateaux/types/${slug}`; // Nouveau chemin dynamique
         delete query.categories;
       }
     } else if (nbMarques === 1) {
-      routeName = 'BoatsListFiltered';
-      params = { slug: selectedBoatMarques.value[0] };
-      delete query.marques;
+      // Si tu as une URL spécifique pour les marques, mets-la ici.
+      // Sinon, on garde /bateaux avec la marque en query parameter.
+      routePath = `/bateaux`;
+      query.marques = selectedBoatMarques.value[0];
     }
   } else {
-    routeName = 'BoatsList';
+    routePath = '/bateaux';
     if (nbCats > 0) {
       const catSlugs = selectedCategoryCodes.value.map(code => getSlugFromCode(code)).filter(slug => slug !== null);
       if (catSlugs.length > 0) query.categories = catSlugs.join(',');
@@ -262,8 +261,8 @@ const updateUrlAndNavigate = async () => {
     } else { delete query.marques; }
   }
 
-  // Remplacement de ton ancien MapsTo par navigateTo de Nuxt
-  await navigateTo({ name: routeName, params, query });
+  // On utilise path au lieu de name
+  await navigateTo({ path: routePath, query });
 }
 
 const loadSearchParameters = async () => {
@@ -325,7 +324,7 @@ const clearAll = async () => {
   puissanceRange.value = {min: 0, max: searchParameters.value.puissanceMax}
   updateAllProgressBars();
 
-  await navigateTo({ name: 'BoatsList' }); // Remplacement ici aussi
+  await navigateTo({ path: '/bateaux' });
   try { await boatsStore.clearFilters() } catch (error) {}
 }
 

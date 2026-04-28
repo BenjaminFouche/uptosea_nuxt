@@ -2,7 +2,7 @@ import Aura from '@primevue/themes/aura';
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-04-28',
-  ssr: true,
+  ssr: false,
 
   components: [
     {
@@ -22,6 +22,16 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@primevue/nuxt-module'
   ],
+
+  hooks: {
+    'pages:extend'(pages) {
+      pages.push({
+        name: 'BoatsListFiltered',
+        path: '/bateaux/types/:slug',
+        file: '~/pages/bateaux/index.vue' // On redirige vers ton fichier unique !
+      });
+    }
+  },
 
   // 2. Importation de tes styles globaux
   css: [
