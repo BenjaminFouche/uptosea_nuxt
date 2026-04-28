@@ -1,0 +1,415 @@
+.register-page {
+    min-height: 100vh;
+    padding: 0;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    @include media-breakpoint-max(md) {
+        padding: 0;
+    }
+}
+
+.register-container {
+    width: 100%;
+    max-width: 800px;
+    border-radius: $border-radius;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    @include media-breakpoint-max(md) {
+        min-height: 100vh;
+        border-radius: 0;
+    }
+}
+
+//.register-header {
+//    display: flex;
+//    align-items: center;
+//    padding: $spacing-lg;
+//    background: $primary-color;
+//    position: relative;
+//    color: white;
+//    justify-content: center;
+//    padding: $spacing-xl;
+//    border-radius: $border-radius $border-radius 0 0;
+//
+//    @include media-breakpoint-max(md) {
+//        border-radius: 0;
+//        padding: $spacing-md;
+//        justify-content: start;
+//    }
+//
+//    .register-title {
+//        font-size: 0.8rem;
+//        font-weight: 600;
+//        margin: 0;
+//        margin-left: 1rem;
+//        letter-spacing: 0.5px;
+//        color: $text-white;
+//        margin-left: 0;
+//        font-size: 1.2rem;
+//
+//        @include media-breakpoint-max(md) {
+//            font-size: 1rem;
+//        }
+//    }
+//}
+
+.register-form {
+    padding: 2rem;
+    border-radius: 16px 16px 0 0;
+
+    @include media-breakpoint-max(md) {
+        border-radius: 0;
+        padding: 1.5rem;
+    }
+}
+
+.form-section {
+    margin-bottom: 2rem;
+
+    .section-title {
+        font-weight: 600;
+        margin-top: $spacing-xs;
+        color: $text-primary;
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+
+        @include media-breakpoint-max(md) {
+            font-size: 1.6rem;
+            margin-bottom: $spacing-lg;
+        }
+    }
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    .form-group-full {
+        grid-column: 1 / -1;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+
+    @include media-breakpoint-max(md) {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+
+        .required {
+            margin-left: 2px;
+        }
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1.2rem;
+        border: 1px solid $border-gray;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+        color: $text-primary !important;
+
+        @include media-breakpoint-max(md) {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+
+        &::placeholder {
+            opacity: 0.8;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        &:hover {
+            border-color: $primary-color;
+        }
+
+        // Style d'erreur
+        &.error {
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+            }
+        }
+    }
+
+    .form-help {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+    }
+
+    .form-error {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    @include media-breakpoint-max(md) {
+        margin-top: 2.5rem;
+        flex-direction: column;
+    }
+
+    .submit-button {
+        width: 100%;
+        background: linear-gradient(135deg, $primary-color 0%, #a29bfe 100%);
+        border: none;
+        padding: 1.4rem;
+        border-radius: 12px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        @include media-breakpoint-max(md) {
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+        }
+
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+    }
+}
+
+.register-page {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Styles pour la validation du mot de passe
+.password-validation {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    border-radius: $border-radius;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+
+    .validation-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.25rem;
+        font-size: 0.875rem;
+        transition: color 0.2s ease;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .validation-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.5rem;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        &.valid {
+            color: #059669;
+
+            .validation-icon {
+                background-color: #059669;
+                color: white;
+            }
+        }
+
+        &.invalid {
+            color: #dc2626;
+
+            .validation-icon {
+                background-color: #dc2626;
+                color: white;
+            }
+        }
+
+        &:not(.valid):not(.invalid) {
+            color: #64748b;
+
+            .validation-icon {
+                background-color: #64748b;
+                color: white;
+            }
+        }
+    }
+}
+
+// Styles pour les boutons radio spécifiques au formulaire d'inscription
+.register-form .radio-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  flex-direction: column;
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    input[type="radio"] {
+      display: inline-block !important;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $border-gray;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      position: relative;
+      cursor: pointer;
+
+      &:checked {
+        border-color: $primary-color;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          background-color: $primary-color;
+          border-radius: 50%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+      }
+    }
+
+    .radio-label {
+      font-size: 1rem;
+      cursor: pointer;
+      user-select: none;
+        margin: 0;
+    }
+  }
+}
+
+// Styles pour la textarea
+.form-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    color: $text-primary;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.5;
+
+    &::placeholder {
+        color: $text-secondary;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+
+    &.error {
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+
+     // Responsive
+    @include media-breakpoint-max(md) {
+        padding: 0.875rem;
+        font-size: 1rem;
+    }
+}
+
+    .p-datepicker {
+        display: flex;
+        width: 100%;
+
+        input {
+            padding: 1.2rem;
+            border-radius: 4px;
+        }
+    }
+
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-grow: 1;
+    text-align: center;
+
+    &:hover {
+        border-color: $primary-color;
+    }
+
+    &.active {
+        border-color: $primary-color;
+        background-color: $primary-color;
+        color: white;
+    }
+}

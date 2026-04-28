@@ -1,0 +1,33 @@
+// header modal
+.header-modal {
+    display: flex;
+    align-items: center;
+    background: $primary-color;
+    position: relative;
+    color: white;
+    justify-content: center;
+    padding: $spacing-xl;
+
+    @include media-breakpoint-max(md) {
+        border-radius: 0;
+        padding: $spacing-md;
+        justify-content: start;
+    }
+
+    .title-modal {
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: 0.5px;
+        color: $text-white;
+        margin-left: 0;
+        font-size: 1.2rem;
+
+        &.no-arrow {
+            margin-left: 0;
+        }
+
+        @include media-breakpoint-max(md) {
+            font-size: 0.9rem;
+        }
+    }
+}

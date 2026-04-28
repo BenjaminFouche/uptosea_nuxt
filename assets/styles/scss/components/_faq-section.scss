@@ -1,0 +1,130 @@
+.faq-section {
+  background-color: #d9dcec;
+  border-radius: $border-radius;
+  margin: $spacing-2xl auto 0;
+  padding: $spacing-2xl $spacing-xl;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: $shadow-lg;
+}
+
+.faq-container {
+  max-width: 100%;
+  width: 100%;
+}
+
+.faq-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 $spacing-xl 0;
+  text-align: left;
+}
+
+.faq-item {
+  margin-bottom: $spacing-xs;
+  overflow: hidden;
+  border-bottom: 1px solid $border-white;
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: $spacing-md;
+    padding-left: 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: $text-secondary;
+    transition: background-color $transition-fast;
+    outline: none;
+
+    span {
+      flex: 1;
+      margin-right: $spacing-md;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      .faq-icon {
+        color: $text-secondary;
+        transition: transform $transition-fast;
+        flex-shrink: 0;
+        width: 26px;
+
+        svg {
+          stroke: #4c55a7;
+        }
+
+        &--open {
+          transform: rotate(-180deg);
+          transition: all 0.4s ease-in-out;
+        }
+
+        & {
+          transition: all 0.4s ease-in-out;
+        }
+      }
+    }
+  }
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height $transition-slow;
+
+  &--open {
+    max-height: 500px;
+    transition: all 0.4s ease-in-out;
+  }
+
+  & {
+    transition: all 0.4s ease-in-out;
+  }
+
+  p {
+    padding: 0 $spacing-lg $spacing-lg;
+    padding-left: 0;
+    margin: 0;
+    color: $text-primary;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+}
+
+// Responsive
+@include media-breakpoint-max(md) {
+    .faq-section {
+        padding: $spacing-xl $spacing-lg;
+        margin: $spacing-xl auto 0;
+        border-radius: $border-radius;
+    }
+
+    .faq-title {
+        font-size: 1.5rem;
+        margin-bottom: $spacing-lg;
+    }
+
+    .faq-question {
+        padding: 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .faq-answer p {
+        padding: 0 1.25rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}

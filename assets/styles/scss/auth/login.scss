@@ -1,0 +1,196 @@
+.login-page {
+    min-height: 100vh;
+    padding: 0;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    @include media-breakpoint-max(md) {
+        padding: 0;
+    }
+}
+
+.login-container {
+    width: 100%;
+    max-width: 800px;
+    border-radius: $border-radius;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    @include media-breakpoint-max(md) {
+        min-height: 100vh;
+        border-radius: 0;
+    }
+}
+
+// Formulaire de connexion
+.login-form {
+    padding: $spacing-lg;
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: $spacing-lg;
+        color: $text-primary;
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: $spacing-xl;
+    }
+
+    .form-actions {
+        margin-top: $spacing-xl;
+
+        .primary {
+            width: 100%;
+            transition: all 0.3s ease;
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .form-error-global {
+        margin-top: $spacing-md;
+        padding: 1rem;
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: $border-radius;
+        color: #dc2626;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+}
+
+// Séparateur
+.auth-separator {
+    padding: 0 $spacing-lg;
+    margin: $spacing-lg 0;
+
+    .separator-line {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+        margin: 0;
+    }
+}
+
+// Actions d'authentification
+.auth-actions {
+    padding: 0 $spacing-lg $spacing-lg;
+
+    .auth-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: $spacing-md;
+        gap: 0.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+            justify-content: center;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: $text-secondary;
+        }
+
+        .link-button {
+            background: none;
+            border: none;
+            color: $primary-color;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            text-decoration: underline;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.1);
+                text-decoration: none;
+            }
+
+            &:focus {
+                outline: 2px solid rgba($primary-color, 0.3);
+                outline-offset: 2px;
+            }
+        }
+    }
+}
+
+// Google
+
+.hr-google {
+    border: 5px;
+    position: relative;
+    height: 42px;
+    padding: max(30px, 2.2em) 0;
+}
+
+.hr-google::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background-color: rgb(202, 202, 202);
+    clip-path: polygon(
+                    0% 0%,
+                    0% 100%,
+                    calc(53% - 50px) 100%,
+                    calc(50% - 50px) 0%,
+                    calc(50% + 50px) 0%,
+                    calc(47% + 50px) 100%,
+                    100% 100%,
+                    100% 0%
+    );
+}
+
+.hr-google::after {
+    content: "Ou";
+    aspect-ratio: 1;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.google-login-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+
+    .google-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px 20px;
+        width: 100%;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 500;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+    }
+}

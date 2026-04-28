@@ -1,0 +1,213 @@
+.similar-boats {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    position: relative;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 3rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 2rem;
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+
+        @include media-breakpoint-max(md) {
+            font-size: 2rem;
+        }
+    }
+
+    &__subtitle {
+        font-size: 1.2rem;
+        color: #6b7280;
+        margin: 0;
+        line-height: 1.5;
+
+        @include media-breakpoint-max(md) {
+            font-size: 1.1rem;
+        }
+    }
+
+    &__error {
+        text-align: center;
+        padding: 2rem;
+        background-color: rgba(254, 242, 242, 0.95);
+        border: 1px solid #fecaca;
+        border-radius: 12px;
+        color: #dc2626;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        backdrop-filter: blur(10px);
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 2rem;
+        background-color: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        backdrop-filter: blur(10px);
+    }
+
+    &__carousel {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 4rem;
+
+        @include media-breakpoint-max(md) {
+            padding: 0 3rem;
+            overflow: hidden;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        cursor: grab;
+        user-select: none;
+        touch-action: pan-y;
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        @include media-breakpoint-max(lg) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-breakpoint-max(md) {
+            display: flex;
+            grid-template-columns: none;
+            gap: 0;
+            width: 100%;
+
+            .boat-card {
+                min-width: 100%;
+                max-width: 100%;
+                flex-shrink: 0;
+            }
+        }
+
+        // Cartes simplifiées
+        .boat-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            pointer-events: auto;
+
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            img {
+                user-select: none;
+                -webkit-user-drag: none;
+                -webkit-touch-callout: none;
+            }
+        }
+    }
+
+    // Flèches de navigation
+    &__nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: $text-light;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        color: white;
+        z-index: 10;
+
+        // Masquer les flèches sur téléphone
+        @include media-breakpoint-max(md) {
+            display: none;
+        }
+
+        &:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: #6c757d;
+                transform: translateY(-50%);
+            }
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+        }
+
+        &--prev {
+            left: 0;
+        }
+
+        &--next {
+            right: 0;
+        }
+    }
+
+    &__error {
+        text-align: center;
+        padding: 2rem;
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        color: #dc2626;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 2rem;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        color: #6b7280;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    // Responsive
+    @include media-breakpoint-max(md) {
+        margin-top: 2rem;
+        padding: 2rem 0;
+    }
+}

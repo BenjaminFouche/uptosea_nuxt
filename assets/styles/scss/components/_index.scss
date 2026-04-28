@@ -1,0 +1,18 @@
+// Import des styles des composants
+@import './help-section';
+@import './faq-section';
+@import './reassurance-section';
+@import './search-filters-section';
+@import './affiner-recherche-section';
+
+// Import des styles des composants communs
+@import './common/header';
+@import './common/footer';
+
+// Import des styles des composants boat-detail
+@import './boat-detail/similar-boats';
+@import './boat-detail/booking-modal';
+
+// Import des styles des composants user/proprietaire
+@import './user/_booking_card';
+@import './user/proprietaire/boat_proprietaire_action';

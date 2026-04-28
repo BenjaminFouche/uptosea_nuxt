@@ -1,0 +1,19 @@
+.boat-fiche {
+  margin-bottom: 32px;
+
+  .fiche-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 20px;
+    text-align: start;
+  }
+
+  .download-link {
+    color: $text-light;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    padding: 0;
+    border: none;
+  }
+}

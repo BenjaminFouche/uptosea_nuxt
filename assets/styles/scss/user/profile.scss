@@ -1,0 +1,700 @@
+.profile-page {
+    min-height: calc(100vh - 200px);
+    padding: $spacing-lg 0;
+    background: $background-light;
+}
+
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+
+    @include media-breakpoint-max(md) {
+        padding: 0 $spacing-md;
+    }
+}
+
+// Header du profil
+.profile-header {
+    background: $background-white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+
+    @include media-breakpoint-max(md) {
+        padding: $spacing-lg;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.profile-header-content {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        text-align: center;
+        gap: $spacing-lg;
+    }
+}
+
+.profile-avatar {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary-color, $primary-color-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-white;
+    font-size: 2rem;
+    font-weight: 600;
+
+    @include media-breakpoint-max(md) {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+}
+
+.avatar-edit-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: $background-white;
+    border: 2px solid $border-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: $transition-default;
+
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: $shadow-md;
+    }
+
+    img {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 $spacing-sm 0;
+
+    @include media-breakpoint-max(md) {
+        font-size: 1.5rem;
+    }
+}
+
+.profile-email {
+    font-size: 1.1rem;
+    color: $text-secondary;
+    margin: 0 0 $spacing-md 0;
+}
+
+.profile-badge {
+    display: flex;
+    gap: $spacing-sm;
+}
+
+.badge {
+    padding: $spacing-xs $spacing-md;
+    border-radius: $border-radius;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    &.badge-owner {
+        background: rgba($success-color, 0.1);
+        color: $success-color;
+    }
+
+    &.badge-renter {
+        background: rgba($primary-color, 0.1);
+        color: $primary-color;
+    }
+
+    &.badge-admin {
+        background: rgba($warning-color, 0.1);
+        color: $warning-color;
+    }
+}
+
+.profile-user-code {
+    margin-top: $spacing-sm;
+
+    .user-code {
+        font-size: 0.875rem;
+        color: $text-light;
+        font-weight: 500;
+    }
+}
+
+// Navigation
+.profile-nav {
+    display: flex;
+    background: $background-white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-sm;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+    overflow-x: auto;
+
+    @include media-breakpoint-max(md) {
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.nav-button {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    border: none;
+    background: transparent;
+    color: $text-secondary;
+    font-weight: 500;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: $transition-default;
+    white-space: nowrap;
+
+    &:hover {
+        background: rgba($primary-color, 0.05);
+        color: $primary-color;
+    }
+
+    &.active {
+        background: $primary-color;
+        color: $text-white;
+    }
+
+    @include media-breakpoint-max(md) {
+        flex: none;
+        padding: $spacing-sm $spacing-md;
+        font-size: 0.875rem;
+    }
+}
+
+// Contenu
+.profile-content {
+    background: $background-white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+
+    @include media-breakpoint-max(md) {
+        padding: $spacing-lg;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.profile-section {
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-xl;
+
+        @include media-breakpoint-max(md) {
+            flex-direction: column;
+            gap: $spacing-md;
+            align-items: flex-start;
+        }
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0;
+    }
+}
+
+// Grille d'informations
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include media-breakpoint-max(md) {
+        grid-template-columns: 1fr;
+        gap: $spacing-md;
+    }
+}
+
+.info-item {
+    &.full-width {
+        grid-column: 1 / -1;
+    }
+}
+
+.info-label {
+    display: block;
+    font-weight: 500;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+}
+
+.info-value {
+    color: $text-secondary;
+    margin: 0;
+    padding: $spacing-md 0;
+    border-bottom: 1px solid $border-color;
+}
+
+.info-input {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    transition: $transition-default;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+}
+
+.info-textarea {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    transition: $transition-default;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+}
+
+// Actions de formulaire
+.form-actions {
+    display: flex;
+    gap: $spacing-md;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+}
+
+// Section permis nautiques
+.permits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+
+
+    @include media-breakpoint-max(md) {
+        grid-template-columns: 1fr;
+        gap: $spacing-md;
+    }
+}
+
+.permit-item {
+    background: rgba($primary-color, 0.02);
+    border: 1px solid rgba($primary-color, 0.1);
+    border-radius: $border-radius;
+    padding: $spacing-lg;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    transition: $transition-default;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+    }
+}
+
+.permit-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: $primary-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 24px;
+        height: 24px;
+        filter: brightness(0) invert(1);
+    }
+}
+
+.permit-info {
+    flex: 1;
+}
+
+.permit-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 $spacing-xs 0;
+}
+
+.permit-status {
+    margin: 0;
+    font-weight: 500;
+    color: $text-secondary;
+
+    &.permit-valid {
+        color: $success-color;
+    }
+}
+
+// Section mes documents
+.documents-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.document-card {
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e9ecef;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+}
+
+.document-preview {
+    height: 120px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .document-icon {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #6c757d;
+        text-transform: uppercase;
+    }
+}
+
+.document-info {
+    padding: 0.75rem;
+    background: white;
+}
+
+.document-name {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #adb5bd;
+    font-style: italic;
+}
+
+.preview-name {
+    font-size: 0.8rem;
+    word-break: break-all;
+}
+
+// Section sécurité
+.security-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-lg 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        gap: $spacing-md;
+        align-items: flex-start;
+    }
+}
+
+.security-info {
+    flex: 1;
+}
+
+.security-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $text-primary;
+    margin: 0 0 $spacing-xs 0;
+}
+
+.security-desc {
+    color: $text-secondary;
+    margin: 0;
+}
+
+// Section préférences
+.preferences-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.preference-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-lg 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        gap: $spacing-md;
+        align-items: flex-start;
+    }
+}
+
+.preference-info {
+    flex: 1;
+}
+
+.preference-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $text-primary;
+    margin: 0 0 $spacing-xs 0;
+}
+
+.preference-desc {
+    color: $text-secondary;
+    margin: 0;
+}
+
+// Toggle switch
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .toggle-slider {
+            background-color: $primary-color;
+
+            &:before {
+                transform: translateX(26px);
+            }
+        }
+    }
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: $transition-default;
+    border-radius: 24px;
+
+    &:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: $transition-default;
+        border-radius: 50%;
+    }
+}
+
+// Actions du compte
+.account-actions {
+    background: $background-white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-2xl;
+    box-shadow: $shadow-sm;
+
+    @include media-breakpoint-max(md) {
+        padding: $spacing-lg;
+    }
+}
+
+.danger-zone {
+    border: 1px solid rgba($danger-color, 0.2);
+    border-radius: $border-radius;
+    padding: $spacing-xl;
+    background: rgba($danger-color, 0.05);
+}
+
+.danger-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $danger-color;
+    margin: 0 0 $spacing-sm 0;
+}
+
+.danger-desc {
+    color: $text-secondary;
+    margin: 0 0 $spacing-lg 0;
+}
+
+.danger-buttons {
+    display: flex;
+    gap: $spacing-md;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+    }
+}
+
+.permit-item {
+    transition: all 0.2s ease-in-out;
+
+    &.editing-mode {
+        cursor: pointer;
+        border: 2px solid #ccc;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+
+        &.is-valid {
+            border-color: var(--color-success, green);
+            background-color: #e6ffe6;
+
+            .permit-status {
+                color: var(--color-success, green);
+                font-weight: bold;
+            }
+        }
+    }
+
+    .permit-status {
+        transition: color 0.2s;
+    }
+}
+
+.permit-valid {
+    color: var(--color-success, green);
+}
+
+.form-group-upload {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.file-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.file-preview {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    p {
+        padding: 0.5rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #495057;
+        word-break: break-all;
+    }
+}
+
+.btn-remove-file {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}

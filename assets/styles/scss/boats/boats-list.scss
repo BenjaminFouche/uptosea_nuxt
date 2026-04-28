@@ -1,0 +1,231 @@
+.boats-list-page { }
+//.container-boats-list {
+//    container: boats-list / inline-size;
+//}
+//
+//@container boats-list (min-width: 800px) {
+//    .boats-list-page {
+//        background-color: green;
+//    }
+//}
+
+.boats-page-title {
+  font-size: 2.25rem;
+  text-align: start;
+  margin: 2rem 0 1.5rem 0;
+  color: #1f2937;
+  font-weight: 700;
+
+  .filter-count {
+    font-size: 1.25rem;
+    color: #6b7280;
+    font-weight: 400;
+    margin-left: 0.5rem;
+  }
+}
+
+.active-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+
+  .filters-active-text {
+    color: #374151;
+    font-weight: 500;
+  }
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.page-subtitle {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.error-container,
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-icon,
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.error-container h3,
+.empty-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.error-container, .error-container-p,
+.empty-container, .empty-p {
+  color: #6b7280;
+}
+
+.empty-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.boats-content {
+  width: 100%;
+  margin: 0;
+}
+
+.boats-info {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.boats-info p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.boats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: $primary-color;
+    color: $primary-color;
+    background: #f8fafc;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pagination-arrow:hover:not(:disabled) {
+  border-color: $primary-color;
+  color: $primary-color;
+  background: #f8fafc;
+}
+
+.pagination-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: #1f2937;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 120px;
+  text-align: center;
+}
+
+@include media-breakpoint(lg) {
+    .boats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@include media-breakpoint-max(md) {
+    .boats-list-page {
+        padding: 1rem 0.5rem;
+    }
+
+    .boats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .pagination {
+        gap: 0.75rem;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .pagination-arrow {
+        width: 36px;
+        height: 36px;
+    }
+
+    .pagination-info {
+        font-size: 0.8rem;
+        min-width: 100px;
+    }
+}

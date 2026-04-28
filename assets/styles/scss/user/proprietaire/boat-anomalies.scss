@@ -1,0 +1,39 @@
+.anomalies-page-container {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    h1 {
+        font-size: 2rem;
+        color: #333;
+        margin: 0;
+    }
+}
+
+.anomalies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 12px;
+    color: #666;
+}

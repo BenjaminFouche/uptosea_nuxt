@@ -1,0 +1,290 @@
+.boat-gallery-container {
+    position: relative;
+    width: 100%;
+}
+
+.boat-gallery {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .main-image {
+        position: relative;
+        flex: 5;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 577px;
+
+        .boat-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &.nav-arrow-left {
+                left: 15px;
+            }
+
+            &.nav-arrow-right {
+                right: 15px;
+            }
+        }
+    }
+
+    .gallery-thumbnails {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 90px;
+        flex: 1;
+
+        .thumbnail {
+            width: 100%;
+            height: calc((577px - 40px) / 5);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            &.active {
+                border-color: var(--primary-color, #0D5D8B);
+            }
+
+            &.more-images {
+                border: none;
+
+                // L'image de fond
+                .bg-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                // Le voile gris
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    span {
+                        color: white;
+                        font-weight: 600;
+                        font-size: 18px;
+                    }
+                }
+
+                // Effet hover
+                &:hover .overlay {
+                    background-color: rgba(0, 0, 0, 0.4);
+                }
+            }
+        }
+    }
+}
+
+// Styles pour la galerie modale
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    .gallery-modal-content {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+    }
+
+    .modal-image-container {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .modal-image {
+            max-width: 1000px;
+            max-height: 650px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .modal-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+            svg {
+                width: 40px;
+                height: 40px;
+                stroke: #000;
+                stroke-width: 3;
+            }
+
+            &.modal-nav-left {
+                left: 20px;
+            }
+
+            &.modal-nav-right {
+                right: 20px;
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.8);
+                transform: translateY(-50%) scale(1.1);
+            }
+        }
+    }
+
+    .modal-thumbnails {
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: flex-start;
+        margin-top: 20px;
+        overflow-x: auto;
+        padding: 0 20px;
+        flex-wrap: nowrap;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        touch-action: pan-x;
+        cursor: grab;
+        user-select: none;
+
+        /* Masquer la barre de défilement */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        .modal-thumbnail {
+            flex: 0 0 auto;
+            height: 80px;
+            width: 120px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            overflow: hidden;
+            padding: 0;
+            cursor: pointer;
+            margin-bottom: 0;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                pointer-events: none;
+                -webkit-user-drag: none;
+                user-select: none;
+            }
+
+            &.active {
+                border-color: white;
+            }
+        }
+    }
+
+    .image-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 14px;
+    }
+}

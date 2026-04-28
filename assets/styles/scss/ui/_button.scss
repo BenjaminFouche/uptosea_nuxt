@@ -1,0 +1,127 @@
+.ui-button {
+  padding: 1rem;
+  border: none;
+  border-radius: 50px;
+  background: #1f2937;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  font-size: 1rem;
+  outline: none;
+}
+
+
+/* Variants */
+.ui-button--primary {
+  background-color: $background-dark;
+  color: white;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+  }
+}
+
+.ui-button--primary:hover:not(:disabled) {
+  background-color: $background-dark;
+}
+
+.ui-button--secondary {
+  background-color: transparent;
+  color: $text-primary;
+  border: 1px solid $border-color;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+  }
+}
+
+.ui-button--outline {
+  background-color: transparent;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+}
+
+.ui-button--outline:hover:not(:disabled) {
+  background-color: $primary-color;
+  color: white;
+}
+
+.ui-button--danger {
+  background-color: $danger-color;
+  color: white;
+}
+
+.ui-button--danger:hover:not(:disabled) {
+  background-color: $danger-color;
+}
+
+
+.ui-button--warning {
+    background-color: $warning-color;
+    color: white;
+}
+
+.ui-button--warning:hover:not(:disabled) {
+    background-color: $warning-color;
+    opacity: 90%;
+}
+
+
+/* Sizes */
+.ui-button--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.ui-button--medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.ui-button--large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* States */
+.ui-button--block {
+  width: 100%;
+}
+
+.ui-button--disabled,
+.ui-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ui-button--loading {
+  cursor: wait;
+}
+
+.ui-button--rounded {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

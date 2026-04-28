@@ -1,0 +1,191 @@
+//.articles-page {
+//    padding: 40px 0;
+//    background-color: var(--background-light, #f5f7fa);
+//    min-height: calc(100vh - 80px); // Moins la hauteur de l'en-tête
+//
+//    &__title {
+//        font-size: 2rem;
+//        font-weight: 700;
+//        margin-bottom: 30px;
+//        color: var(--primary-color);
+//        text-align: center;
+//    }
+//
+//    &__filters {
+//        display: flex;
+//        flex-wrap: wrap;
+//        gap: 20px;
+//        margin-bottom: 30px;
+//        padding: 20px;
+//        background-color: white;
+//        border-radius: 8px;
+//        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+//
+//        .filter-group {
+//            flex: 1;
+//            min-width: 200px;
+//
+//            label {
+//                display: block;
+//                margin-bottom: 8px;
+//                font-weight: 600;
+//                color: var(--text-primary);
+//            }
+//
+//            select, input {
+//                width: 100%;
+//                padding: 10px 15px;
+//                border: 1px solid #ddd;
+//                border-radius: 4px;
+//                font-size: 1rem;
+//
+//                &:focus {
+//                    outline: none;
+//                    border-color: var(--primary-color);
+//                    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+//                }
+//            }
+//
+//            &.search {
+//                flex: 2;
+//            }
+//        }
+//    }
+//
+//    &__grid {
+//        display: grid;
+//        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+//        gap: 25px;
+//    }
+//
+//    &__card {
+//        height: 100%;
+//    }
+//
+//    .loading-message,
+//    .error-message,
+//    .no-results {
+//        text-align: center;
+//        padding: 30px;
+//        background-color: white;
+//        border-radius: 8px;
+//        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+//
+//        p {
+//            font-size: 1.1rem;
+//        }
+//    }
+//
+//    .error-message {
+//        background-color: rgba(var(--danger-color-rgb), 0.1);
+//        color: var(--danger-color);
+//    }
+//
+//    // Responsive
+//    @media (max-width: 768px) {
+//        padding: 20px 0;
+//
+//        &__filters {
+//            flex-direction: column;
+//            gap: 15px;
+//
+//            .filter-group {
+//                width: 100%;
+//                min-width: 100%;
+//            }
+//        }
+//
+//        &__grid {
+//            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+//            gap: 15px;
+//        }
+//    }
+//}
+
+.container {
+    max-width: none !important;
+}
+
+.articles-page {
+    padding: 30px 0;
+}
+
+.articles-page__layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column-reverse;
+    }
+}
+
+.articles-page__sidebar {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 80px;
+    z-index: 1;
+
+    @include media-breakpoint-max(md) {
+        flex: 0;
+        width: 100%;
+    }
+}
+
+.articles-page__content {
+    flex: 1;
+
+    @include media-breakpoint-max(md) {
+        width: 100%;
+    }
+}
+
+.articles-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
+    gap: 20px;
+
+    @include media-breakpoint-max(md) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Style du message d'erreur */
+.error-container {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.retry-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.retry-button:hover {
+    background-color: #003d7a;
+}
+
+/* Style du message quand aucun résultat */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}

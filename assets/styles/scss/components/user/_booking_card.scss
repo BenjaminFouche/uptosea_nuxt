@@ -1,0 +1,243 @@
+.booking-card-container {
+    container-type: inline-size;
+    container-name: booking-card;
+}
+
+.booking-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #f1f5f9;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    // --- RESPONSIVE  ---
+    @media (min-width: 1280px) {
+        flex-direction: row;
+        min-height: 220px;
+    }
+    @container booking-card (min-width: 1280px) {
+        flex-direction: row;
+        min-height: 220px;
+    }
+
+    // --- IMAGE ---
+    &__image {
+        position: relative;
+        height: 160px;
+
+        @media (min-width: 1280px) {
+            width: 260px;
+            height: auto;
+            flex-shrink: 0;
+        }
+    }
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        max-height: 235px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    &__status {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: white;
+
+        &.terminee {
+            background-color: #4caf50;
+        }
+
+        &.attente_paiement {
+            background-color: $warning-color;
+        }
+
+        &.attente_devis {
+            background-color: $success-color;
+        }
+
+        &.payee {
+            background-color: $primary-color;
+        }
+
+        &.status-cancelled {
+            background-color: $danger-color;
+        }
+    }
+
+    // --- CONTENU ---
+    &__content {
+        padding: 16px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 4px;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .reference {
+        font-size: 0.75rem;
+        color: white;
+        background-color: $primary-color;
+        white-space: nowrap;
+        margin-left: 8px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    &__location {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 12px;
+    }
+
+    // --- LISTE DES INFOS  ---
+    &__specs {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 16px;
+
+        .spec-row {
+            display: flex;
+            align-items: baseline;
+            font-size: 0.9rem;
+        }
+
+        .spec-label {
+            min-width: 60px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .spec-time {
+            color: $primary-color;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+    }
+
+    // --- PRIX ---
+    &__price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $primary-color;
+        text-align: right;
+        margin-top: auto;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    // --- ACTIONS ---
+    &__actions {
+        display: flex;
+        flex-direction: column; /* Sur mobile, on empile proprement les deux groupes */
+        gap: 12px;
+        margin-top: 25px;
+
+        /* Dès que la carte est assez large, on les aligne aux extrémités */
+        @container myboat-card (min-width: 600px) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        @media (min-width: 600px) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .actions, .more-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .actions {
+            justify-content: flex-start;
+        }
+
+        .more-actions {
+            justify-content: flex-start; /* Sur mobile, on aligne à gauche */
+
+            @container myboat-card (min-width: 600px) {
+                justify-content: flex-end; /* Sur grand écran, on pousse à droite */
+            }
+            @media (min-width: 600px) {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    .more-actions, .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}
+
+.payment-error-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ef4444;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.price-amount {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.devis-text {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.paid_button {
+    background-color: $primary-color;
+}

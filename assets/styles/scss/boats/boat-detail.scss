@@ -1,0 +1,427 @@
+.boat-detail-page {
+    min-height: 100vh;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include media-breakpoint-max(md) {
+        padding: 16px;
+    }
+}
+
+// États de chargement et d'erreur
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: 20px;
+
+    .error-icon {
+        font-size: 48px;
+    }
+
+    h3 {
+        color: #333;
+        margin: 0;
+        font-size: 24px;
+    }
+
+    p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 16px;
+    }
+}
+
+// Contenu principal
+.boat-detail-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    padding-top: 20px;
+
+    @include media-breakpoint-max(md) {
+        gap: 24px
+    }
+}
+
+// Galerie d'images
+.boat-gallery {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .main-image {
+        position: relative;
+        flex: 1;
+        height: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #e9ecef;
+
+        @include media-breakpoint-max(md) {
+            height: 300px;
+        }
+
+        .boat-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #6c757d;
+
+            &:hover {
+                background: rgba(255, 255, 255, 1);
+                transform: scale(1.05);
+            }
+
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #6c757d;
+            z-index: 2;
+
+            &:hover {
+                background: rgba(255, 255, 255, 1);
+                transform: translateY(-50%) scale(1.1);
+            }
+
+            &.nav-arrow-left {
+                left: 16px;
+            }
+
+            &.nav-arrow-right {
+                right: 16px;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+                min-width: 20px;
+            }
+        }
+    }
+
+    .gallery-thumbnails {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 140px;
+        flex-shrink: 0;
+
+        @include media-breakpoint-max(md) {
+            flex-direction: row !important;
+            width: 100% !important;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: none;
+            padding: 0;
+
+            &.active {
+                border-color: #007bff;
+                transform: scale(1.05);
+            }
+
+            &:hover {
+                border-color: #adb5bd;
+                transform: scale(1.02);
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .gallery-indicators {
+        display: none;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+
+        @include media-breakpoint-max(md) {
+            display: flex;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: #dee2e6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &.active {
+                background: #007bff;
+                transform: scale(1.2);
+            }
+
+            &:hover {
+                background: #adb5bd;
+            }
+        }
+    }
+}
+
+// Informations du bateau alignées à gauche
+.boat-info-left {
+    max-width: 100%;
+    align-self: flex-start;
+
+    @include media-breakpoint-max(md) {
+        max-width: 100%;
+    }
+
+    .boat-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 16px;
+        line-height: 1.2;
+        text-align: start;
+
+        @include media-breakpoint-max(md) {
+            font-size: 24px;
+        }
+    }
+
+    .boat-location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+        font-size: 16px;
+        color: #6c757d;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            color: #007bff;
+        }
+    }
+
+    .boat-license {
+        .license-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #bbdefb;
+        }
+    }
+
+    hr {
+        margin: 24px 0;
+        border: none;
+        border-top: 1px solid #e9ecef;
+    }
+}
+
+.boat-info {
+    padding: 20px 0;
+
+    .boat-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 16px;
+        line-height: 1.2;
+        text-align: start;
+
+        @include media-breakpoint-max(md) {
+            font-size: 24px;
+        }
+    }
+
+    .boat-location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+        font-size: 16px;
+        color: #6c757d;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            color: #007bff;
+        }
+    }
+
+    .boat-license {
+        .license-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #bbdefb;
+        }
+    }
+}
+
+// Section des actions
+.boat-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e9ecef;
+    padding: 16px 20px;
+    z-index: 1;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include media-breakpoint-max(md) {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    @media screen and (max-width: 400px) {
+        .contact-btn {
+            display: none;
+        }
+
+        & {
+            flex-direction: row;
+            justify-content: center;
+
+            .action-buttons {
+                display: grid !important;
+                width: 50% !important;
+            }
+
+            .price-section {
+                width: 50%;
+            }
+        }
+    }
+    
+    .price-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @include media-breakpoint-max(md) {
+            align-items: center;
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+
+        .price-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #212529;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+
+        @include media-breakpoint-max(md) {
+            width: 100%;
+
+            .contact-btn,
+            .reserve-btn {
+                flex: 1;
+            }
+        }
+
+        .contact-btn {
+            min-width: 150px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .reserve-btn {
+            min-width: 120px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
+.boat-detail-page {
+    padding-bottom: 100px;
+
+    @include media-breakpoint-max(md) {
+        padding-bottom: 120px;
+    }
+}

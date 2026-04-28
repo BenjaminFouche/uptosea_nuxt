@@ -1,0 +1,232 @@
+@use "sass:math";
+@use "sass:color";
+
+.payment-page-container {
+    container-type: inline-size;
+    container-name: payment-page;
+}
+
+.payment-page {
+    padding: $spacing-xl 0;
+    background-color: $background-white;
+    min-height: calc(100vh - $header-height);
+
+    @media (max-width: $breakpoint-md) {
+        min-height: calc(100vh - $header-height-mobile);
+        padding: $spacing-lg 0;
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__title {
+        font-size: 1.8rem;
+        color: $primary-color;
+        font-weight: 600;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__subtitle {
+        font-size: 1rem;
+        color: $text-light;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+}
+
+.error-card {
+    background: $background-white;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    text-align: center;
+    box-shadow: $shadow-md;
+    margin: $spacing-lg 0;
+
+    h3 {
+        color: $danger-color;
+        font-size: 1.3rem;
+        margin-bottom: $spacing-sm;
+    }
+
+    p {
+        color: $text-secondary;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $danger-color;
+        color: $text-white;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        margin: 0 auto $spacing-md;
+    }
+
+    &__button {
+        max-width: 180px;
+        width: 100%;
+        padding: $spacing-sm $spacing-md;
+    }
+}
+
+.booking-card {
+    background: $background-white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+    margin-bottom: $spacing-lg;
+    transition: $transition-default;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+
+    &__header {
+        background: rgba($primary-color, 0.05);
+        padding: $spacing-md $spacing-lg;
+        border-bottom: 1px solid $border-gray;
+
+        h2 {
+            font-size: 1.3rem;
+            color: $primary-color;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+
+            .material-icons {
+                margin-right: $spacing-sm;
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__content {
+        padding: $spacing-lg;
+    }
+}
+
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-sm 0;
+    font-size: 0.95rem;
+    color: $text-secondary;
+    border-bottom: 1px dashed $border-color;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &--total {
+        font-weight: 700;
+        color: $success-color;
+        font-size: 1.1rem;
+        padding-top: $spacing-md;
+        border-top: 1px solid $border-gray;
+    }
+
+    &__label {
+        font-weight: 600;
+        color: $text-primary;
+    }
+
+    &__value {
+        text-align: right;
+    }
+}
+
+.payment-actions {
+    text-align: center;
+    padding: $spacing-lg 0;
+
+    &__info {
+        font-size: 1rem;
+        color: $text-secondary;
+        margin-bottom: $spacing-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .lock-icon {
+            margin-right: $spacing-sm;
+            color: $success-color;
+        }
+    }
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    align-items: center;
+
+    @container payment-page (min-width: $breakpoint-sm) {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .action-button {
+        width: 100%;
+        max-width: 250px;
+        padding: $spacing-sm $spacing-lg;
+        border-radius: $radius-md;
+        font-size: 1rem;
+        position: relative;
+        transition: $transition-fast;
+
+        &--primary {
+            &:hover {
+                transform: scale(1.02);
+            }
+
+            &.success::after {
+                content: "→";
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                opacity: 0;
+                transition: $transition-fast;
+            }
+
+            &.success:hover::after {
+                opacity: 1;
+                right: 10px;
+            }
+        }
+
+        &--secondary {
+            max-width: 180px;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .booking-item {
+        flex-direction: column;
+        gap: $spacing-xs;
+
+        &__value {
+            text-align: left;
+        }
+    }
+}

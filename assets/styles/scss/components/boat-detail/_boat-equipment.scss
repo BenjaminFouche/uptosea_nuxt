@@ -1,0 +1,37 @@
+.loading-state, .empty-state {
+    padding: 1rem;
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.boat-equipment {
+    margin-bottom: 32px;
+
+    .equipment-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 20px;
+        text-align: start;
+    }
+
+    .equipment-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+
+        .equipment-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: #374151;
+
+            svg {
+                flex-shrink: 0;
+            }
+        }
+    }
+}

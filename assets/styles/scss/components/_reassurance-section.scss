@@ -1,0 +1,130 @@
+.reassurance-section {
+  background-color: $light-color;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: $spacing-3xl $spacing-xl;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reassurance-container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.reassurance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-xl;
+  align-items: start;
+}
+
+.reassurance-item {
+  background: white;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  text-align: center;
+  box-shadow: $shadow-md;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.reassurance-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background: #eff6ff;
+  border-radius: 50%;
+  margin: 0 auto $spacing-lg;
+}
+
+.reassurance-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $dark-color;
+  margin: 0 0 $spacing-sm 0;
+}
+
+.reassurance-description {
+  font-size: 0.875rem;
+  color: $secondary-color;
+  margin: 0;
+  line-height: 1.5;
+}
+
+// Responsive
+@include media-breakpoint-max(md) {
+    .reassurance-section {
+        padding: 2.5rem $spacing-md;
+    }
+
+    .reassurance-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-lg;
+    }
+
+    .reassurance-item {
+        padding: $spacing-lg;
+    }
+
+    .reassurance-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: $spacing-md;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .reassurance-title {
+        font-size: 1rem;
+        margin-bottom: $spacing-xs;
+    }
+
+    .reassurance-description {
+        font-size: 0.8rem;
+    }
+
+    .reassurance-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-md;
+    }
+
+    .reassurance-item {
+        padding: 1.25rem;
+    }
+
+    .reassurance-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0.75rem;
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .reassurance-title {
+        font-size: 0.9rem;
+        margin-bottom: $spacing-xs;
+    }
+
+    .reassurance-description {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+}

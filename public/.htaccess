@@ -1,0 +1,16 @@
+# Moteur de réécriture pour Vue.js
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Autoriser Let's Encrypt (Certificat SSL)
+    RewriteRule ^\.well-known/ - [L]
+
+    # Si le fichier ou dossier existe (image, css, js...), l'afficher directement
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Sinon, tout rediriger vers index.html (pour que les URLs Vue.js fonctionnent)
+    RewriteRule . /index.html [L]
+</IfModule>

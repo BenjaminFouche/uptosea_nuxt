@@ -1,0 +1,56 @@
+.boat-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: stretch;
+
+    @include media-breakpoint-max(sm) {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .skipper {
+        display: flex;
+        background-color: $primary-color;
+
+        .spec-value {
+            color: $text-white !important;
+            text-transform: uppercase;
+            font-size: 12px !important;
+            text-align: center;
+            white-space: normal !important;
+        }
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5px 16px;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+        height: 50px;
+        //flex: 0 0 auto;
+        flex-basis: auto;
+        min-width: 120px;
+
+        .spec-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212529;
+            white-space: nowrap;
+        }
+    }
+}
