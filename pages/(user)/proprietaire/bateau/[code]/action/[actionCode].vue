@@ -3,7 +3,7 @@
     <div class="container">
       <Breadcrumbs></Breadcrumbs>
 
-      <div v-if="isLoading" class="loader-container">
+      <div v-if="isPageLoading" class="loader-container">
         <LoadingSpinner v-if="isLoading" message="Chargement des détails de l'action..." />
       </div>
       <div v-else-if="error" class="error-message">
@@ -120,12 +120,23 @@ import { useBoatProprietaireStore } from '@/stores/useBoatProprietaireStore';
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import Breadcrumbs from "@/components/common/Breadcrumbs.vue";
 
+definePageMeta({
+  middleware: ['auth'],
+  breadcrumb: (route) => [
+    { label: 'Mes bateaux', to: '/proprietaire/bateaux' },
+    { label: 'Gestion des activités', to: `/proprietaire/bateau/${route.params.code}/actions` },
+    { label: 'Détail de l\'activité' }
+  ]
+})
+
 const route = useRoute();
 const store = useBoatProprietaireStore();
 const action = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
 const showGallery = ref(false);
+
+const isPageLoading = ref(true);
 
 // --- Media Helpers ---
 const isImage = (mimeType) => mimeType?.startsWith('image/');
@@ -143,10 +154,13 @@ const documentCount = computed(() => documents.value.length);
 
 onMounted(async () => {
   const actionCode = route.params.actionCode;
+
   if (actionCode) {
     isLoading.value = true;
     try {
+      // 🪄 CORRECTION ICI : On stocke le résultat dans 'const response'
       const response = await store.fetchActionsDetail(actionCode);
+
       if (response && response.elements && response.elements.length > 0) {
         action.value = response.elements[0];
       } else {
@@ -155,8 +169,12 @@ onMounted(async () => {
     } catch (e) {
       error.value = e.message || "Une erreur est survenue lors de la récupération des détails.";
     } finally {
-      isLoading.value = false;
+      isPageLoading.value = false;
+      isLoading.value = false; // N'oublie pas de stopper l'autre loader aussi !
     }
+  } else {
+    isPageLoading.value = false;
+    error.value = "Code de l'action manquant.";
   }
 });
 

@@ -31,41 +31,40 @@ const route = useRoute()
 const boatsStore = useBoatsStore() // 2. Initialise le store
 
 const breadcrumbs = computed(() => {
-  // --- CAS 1 : TABLEAU DÉFINI DANS LA PAGE (definePageMeta) ---
-  if (Array.isArray(route.meta.breadcrumb)) {
-    return route.meta.breadcrumb;
+  let metaBreadcrumb = route.meta.breadcrumb;
+
+  if (typeof metaBreadcrumb === 'function') {
+    metaBreadcrumb = metaBreadcrumb(route);
   }
 
-  // --- CAS 2 : DÉTAIL DU BATEAU (Dynamique) ---
-  // On vérifie si on est sur une URL de type /bateaux/CODE
-  if (route.params.code && route.path.startsWith('/bateaux/')) {
-    // On cherche le bateau dans la liste du store grâce au code de l'URL
-    const boat = boatsStore.boats.find(b => b.code === route.params.code);
-
-    // On détermine le nom à afficher (le nom du bateau ou le code en fallback)
-    const boatName = boat ? (boat.nomBapteme || boat.nom) : `Bateau ${route.params.code}`;
-
-    return [
-      { label: 'Bateaux', to: '/bateaux' },
-      { label: boatName } // Pas de "to" car c'est la page actuelle
-    ];
+  if (Array.isArray(metaBreadcrumb)) {
+    return metaBreadcrumb;
   }
 
-  // --- CAS 3 : FILTRE PAR TYPE (Slug) ---
-  if (route.params.slug && route.path.includes('/types/')) {
+  if (route.path.includes('/bateaux/types/') && route.params.slug) {
     return [
       { label: 'Bateaux', to: '/bateaux' },
       { label: `Catégorie : ${route.params.slug}` }
     ];
   }
 
-  // --- CAS 4 : PAGES SIMPLES (Fallback) ---
-  const matchedRoutes = route.matched.filter(r => r.meta && r.meta.breadcrumb);
+  const matchedRoutes = route.matched.filter(
+      (r) => r.meta && r.meta.breadcrumb
+  )
+
   return matchedRoutes.map((r) => {
-    let label = r.meta.breadcrumb;
-    if (typeof label === 'function') label = label(route);
-    return { label, to: r.path };
-  });
+    let label = r.meta.breadcrumb
+    if (typeof label === 'function') {
+      label = label(route)
+    }
+
+    const to = r.path || { name: r.name, params: route.params };
+
+    return {
+      label,
+      to
+    }
+  })
 })
 </script>
 

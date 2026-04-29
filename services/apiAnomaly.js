@@ -1,17 +1,15 @@
+import { useAuthStore } from '@/stores/useAuthStore';
+
 export class ApiAnomalyService {
 
-    // Fonction utilitaire interne pour récupérer l'URL de base Nuxt
     static getBaseUrl() {
         const config = useRuntimeConfig();
         return config.public.apiUrl;
     }
 
-    /**
-     * Récupère la liste des anomalies de l'utilisateur
-     */
     static async getAnomalies(token, year = null) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
 
             if (!authToken) {
                 throw new Error("Vous devez être connecté pour voir les anomalies");
@@ -25,11 +23,9 @@ export class ApiAnomalyService {
                 }
             });
 
-            if (Array.isArray(data)) {
-                return { elements: data };
-            } else if (data && data.elements && Array.isArray(data.elements)) {
-                return data;
-            } else if (data && typeof data === 'object') {
+            if (Array.isArray(data)) return { elements: data };
+            if (data && data.elements && Array.isArray(data.elements)) return data;
+            if (data && typeof data === 'object') {
                 const possibleArray = data['hydra:member'] || data.data || [];
                 return { elements: possibleArray };
             }
@@ -44,18 +40,13 @@ export class ApiAnomalyService {
         }
     }
 
-    /**
-     * Créer une nouvelle anomalie
-     */
     static async createAnomaly(token, anomalyData) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
 
             return await $fetch(`${this.getBaseUrl()}/api/anomalies`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                },
+                headers: { 'Authorization': `Bearer ${authToken}` },
                 body: anomalyData
             });
         } catch (error) {
@@ -64,18 +55,13 @@ export class ApiAnomalyService {
         }
     }
 
-    /**
-     * Mettre à jour une anomalie
-     */
     static async updateAnomaly(token, id, anomalyData) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
 
             return await $fetch(`${this.getBaseUrl()}/api/anomalies/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                },
+                headers: { 'Authorization': `Bearer ${authToken}` },
                 body: anomalyData
             });
         } catch (error) {
@@ -84,18 +70,15 @@ export class ApiAnomalyService {
         }
     }
 
-    /**
-     * Supprimer une anomalie
-     */
     static async deleteAnomaly(token, id) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
 
             await $fetch(`${this.getBaseUrl()}/api/anomalies/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
-                    'Accept': 'application/json' // Gardé au cas où ton backend l'exige
+                    'Accept': 'application/json'
                 }
             });
             return true;
@@ -105,12 +88,9 @@ export class ApiAnomalyService {
         }
     }
 
-    /**
-     * Uploade une image pour une anomalie
-     */
     static async uploadAnomalyImage(token, fcCodeMaitre, file) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             const formData = new FormData();
             formData.append('file', file);
             formData.append('FC_INDEXTABLE', '0');
@@ -118,9 +98,7 @@ export class ApiAnomalyService {
 
             return await $fetch(`${this.getBaseUrl()}/media/upload`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                },
+                headers: { 'Authorization': `Bearer ${authToken}` },
                 body: formData
             });
         } catch (error) {
@@ -129,20 +107,15 @@ export class ApiAnomalyService {
         }
     }
 
-    /**
-     * Récupère les anomalies optimisées pour le dashboard
-     */
     static async getDashboardAnomalies(token, year) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Vous devez être connecté.");
 
             return await $fetch(`${this.getBaseUrl()}/api/proprietaire/dashboard-anomalies`, {
                 method: 'GET',
                 query: { year },
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                }
+                headers: { 'Authorization': `Bearer ${authToken}` }
             });
         } catch (error) {
             console.error('Erreur API getDashboardAnomalies:', error);

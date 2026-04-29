@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/stores/useAuthStore';
+
 export class ApiBookingService {
 
     static getBaseUrl() {
@@ -5,16 +7,13 @@ export class ApiBookingService {
         return config.public.apiUrl;
     }
 
-    /**
-     * Simulation d'une réservation
-     */
     static async simulateBooking(bookingData) {
         try {
-            const token = import.meta.client ? localStorage.getItem('token') : null;
+            const authToken = useAuthStore().token;
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations/simulate`, {
                 method: 'POST',
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+                headers: authToken ? { 'Authorization': `Bearer ${authToken}` } : {},
                 body: bookingData
             });
         } catch (error) {
@@ -26,20 +25,17 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Ajout d'une réservation
-     */
     static async addBooking(bookingData) {
         try {
-            let token = import.meta.client ? localStorage.getItem('token') : null;
+            let authToken = useAuthStore().token;
             if (!(bookingData instanceof FormData) && bookingData.token) {
-                token = bookingData.token;
+                authToken = bookingData.token;
             }
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations`, {
                 method: 'POST',
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {},
-                body: bookingData // $fetch gère automatiquement FormData ou JSON
+                headers: authToken ? { 'Authorization': `Bearer ${authToken}` } : {},
+                body: bookingData
             });
         } catch (error) {
             console.error('Erreur API addBooking:', error);
@@ -47,9 +43,6 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Récupère les indisponibilités spécifiques
-     */
     static async getIndisponibilities(boatCode, from, to, token = null) {
         try {
             const data = await $fetch(`${this.getBaseUrl()}/api/bateaux/${boatCode}/indisponibilites`, {
@@ -67,12 +60,9 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Récupère les détails des réservations de l'utilisateur connecté
-     */
     static async getBookings(token) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
 
             if (!authToken) throw new Error("Vous devez être connecté pour accéder à vos réservations");
 
@@ -94,20 +84,16 @@ export class ApiBookingService {
             } else if (error.statusCode === 404) {
                 throw new Error('Ressource non trouvée: aucune réservation disponible.');
             }
-            // Silencieux sur le 500 si "No account found"
             if (error.data?.message === 'No account found for the current user') {
                 return { elements: [] };
             }
-            return { elements: [] }; // On retourne vide plutôt que de crasher l'UI
+            return { elements: [] };
         }
     }
 
-    /**
-     * Récupère les disponibilités d'un bateau pour une plage de dates
-     */
     static async getAvailability(boatCode, from, to, token = null) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Vous devez être connecté pour vérifier les disponibilités");
 
             const data = await $fetch(`${this.getBaseUrl()}/api/bateaux/${boatCode}/disponibilites`, {
@@ -129,12 +115,10 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Met à jour les informations d'une reservation
-     */
     static async updateBooking(token, bookingData) {
         try {
-            if (!token) throw new Error('Token d\'authentification manquant');
+            const authToken = token || useAuthStore().token;
+            if (!authToken) throw new Error('Token d\'authentification manquant');
             if (!bookingData.id) throw new Error('ID de réservation manquant');
 
             const updateData = { ...bookingData };
@@ -150,7 +134,7 @@ export class ApiBookingService {
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingData.id}`, {
                 method: 'PUT',
-                headers: { 'Authorization': `Bearer ${token}` },
+                headers: { 'Authorization': `Bearer ${authToken}` },
                 body: updateData
             });
         } catch (error) {
@@ -159,26 +143,21 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Consulter les détails d'une réservation
-     */
     static async getBookingDetails(token, bookingId) {
         try {
+            const authToken = token || useAuthStore().token;
             return await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingId}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }
+                headers: { 'Authorization': `Bearer ${authToken}` }
             });
         } catch (error) {
             throw new Error(error.data?.message || 'Erreur lors de la récupération des détails de la réservation');
         }
     }
 
-    /**
-     * Annuler une réservation
-     */
     static async cancelBooking(token, bookingId) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Token d'authentification requis");
 
             await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingId}`, {
@@ -192,17 +171,14 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Récupère le nombre de réservations dans le panier
-     */
     static async getBasketCount() {
         try {
-            const token = import.meta.client ? localStorage.getItem('token') : null;
-            if (!token) return 0;
+            const authToken = useAuthStore().token;
+            if (!authToken) return 0;
 
             const data = await $fetch(`${this.getBaseUrl()}/api/reservations/basket`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }
+                headers: { 'Authorization': `Bearer ${authToken}` }
             });
 
             if (data.elements && Array.isArray(data.elements) && data.elements.length > 0) {
@@ -214,12 +190,9 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Obtient un lien de paiement pour une réservation spécifique
-     */
     static async getPaymentLink(token, bookingId) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Vous devez être connecté pour effectuer ce paiement");
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingId}/lien-paiement`, {
@@ -234,12 +207,9 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Vérification du paiement
-     */
     static async checkPaymentStatus(token, bookingId) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Vous devez être connecté");
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingId}/verifier-paiement`, {
@@ -251,12 +221,9 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Récupère une réservation spécifique par son ID
-     */
     static async getBookingById(token, bookingId) {
         try {
-            let authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             if (!authToken) throw new Error("Vous devez être connecté");
 
             return await $fetch(`${this.getBaseUrl()}/api/reservations/${bookingId}`, {
@@ -273,12 +240,9 @@ export class ApiBookingService {
         }
     }
 
-    /**
-     * Uploade le fichier du permis pour une réservation
-     */
     static async uploadLicenseFile(token, reservationId, file) {
         try {
-            const authToken = token || (import.meta.client ? localStorage.getItem('token') : null);
+            const authToken = token || useAuthStore().token;
             const formData = new FormData();
             formData.append('file', file);
             formData.append('FC_INDEXTABLE', '0');

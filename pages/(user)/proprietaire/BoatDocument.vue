@@ -150,7 +150,7 @@ onMounted(() => {
 
 // Retire le filtre
 const clearFilter = () => {
-  navigateTo({ name: 'BoatDocument' });
+  navigateTo({ path: '/proprietaire/BoatDocument' });
 };
 
 // Gestion du modal

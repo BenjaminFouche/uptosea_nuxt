@@ -2,7 +2,7 @@ import Aura from '@primevue/themes/aura';
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-04-28',
-  ssr: false,
+  ssr: true,
 
   components: [
     {

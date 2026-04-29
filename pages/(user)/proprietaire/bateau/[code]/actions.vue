@@ -99,7 +99,7 @@
               </div>
 
               <div class="boat-action-card__footer">
-                <NuxtLink :to="{ name: 'ActionsBoatDetails', params: { actionCode: action.code } }">
+                <NuxtLink :to="`/proprietaire/bateau/${$route.params.code}/action/${action.code}`">
                   <UiButton variant="primary">
                     Voir le détail
                   </UiButton>
@@ -132,6 +132,7 @@ import { useBoatProprietaireStore } from '@/stores/useBoatProprietaireStore';
 import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import { MbscEventcalendar, localeFr } from '@mobiscroll/vue';
 import '@mobiscroll/vue/dist/css/mobiscroll.min.css';
@@ -158,7 +159,7 @@ export default {
   },
   setup(props) {
     const store = useBoatProprietaireStore();
-    const router = useRouter();
+    const route = useRoute();
     const { boats, actionsByBoat, error } = storeToRefs(store);
     const { fetchBoats, fetchActionsByBoat, createBoatAction, updateBoatAction, fetchActionsDetail } = store;
 
@@ -166,8 +167,12 @@ export default {
     const isLoadingActions = ref(true);
     const currentView = ref('calendar');
 
+    const authStore = useAuthStore();
+
     const isActionModalOpen = ref(false);
     const selectedAction = ref(null);
+
+    const boatCodeFromUrl = route.params.code
 
     // Etats pour les filtres
     const searchQuery = ref('');
@@ -179,8 +184,11 @@ export default {
     ];
 
     const canEdit = (action) => {
-      console.log(action.libelleTypeAction);
-      return action.source === 'action' && !action.codeInterlocuteurSource && action.codeContact == JSON.parse(localStorage.getItem("userData")).code && !action.libelleTypeAction?.includes('LOCATION');
+      const userCode = authStore.user?.code;
+      return action.source === 'action' &&
+          !action.codeInterlocuteurSource &&
+          action.codeContact == userCode &&
+          !action.libelleTypeAction?.includes('LOCATION');
     };
 
     const openEditModal = async (action) => {
@@ -209,7 +217,7 @@ export default {
 
     const handleSaveAction = async (payload) => {
       try {
-        payload.formData.bateauId = props.code;
+        payload.formData.bateauId = boatCodeFromUrl;
 
         if (payload.isUpdate) {
           await updateBoatAction(payload.actionCode, payload);
@@ -239,7 +247,7 @@ export default {
     };
 
     const actions = computed(() => {
-      const data = actionsByBoat.value?.[props.code];
+      const data = actionsByBoat.value?.[boatCodeFromUrl];
       return data?.elements || [];
     });
 
@@ -311,7 +319,9 @@ export default {
       const actionClicked = args.event.originalData;
 
       if (actionClicked) {
-        navigateTo({ name: 'ActionsBoatDetails', params: { actionCode: actionClicked.code } });
+        navigateTo({
+          path: `/proprietaire/bateau/${route.params.code}/action/${actionClicked.code}`
+        });
       }
     };
 
@@ -319,7 +329,7 @@ export default {
       try {
         await fetchBoats();
         isLoadingBoats.value = false;
-        await fetchActionsByBoat(props.code);
+        await fetchActionsByBoat(boatCodeFromUrl);
         isLoadingActions.value = false;
       } catch (err) {
         isLoadingBoats.value = false;
@@ -328,7 +338,7 @@ export default {
     });
 
     return {
-      boatName: computed(() => (boats.value || []).find(b => b.code === props.code)?.nomBapteme),
+      boatName: computed(() => (boats.value || []).find(b => b.code === boatCodeFromUrl)?.nomBapteme),
       actions,
       filteredActions,
       isLoadingBoats,
