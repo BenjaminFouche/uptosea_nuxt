@@ -84,5 +84,24 @@ export default defineNuxtConfig({
     components: {
       include: ['DatePicker']
     }
+  },
+
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.infocob-web.com/css/Inter|wgt:400,600,700|stl:normal,italic/Raleway|wgt:400,600,700|stl:normal,italic/Quetine|stl:normal,italic/',
+          media: 'none',
+          onload: "if(media!='all')media='all'",
+          referrerpolicy: 'origin'
+        }
+      ],
+      noscript: [
+        {
+          innerHTML: '<link rel="stylesheet" href="https://fonts.infocob-web.com/css/Inter|wgt:400,600,700|stl:normal,italic/Raleway|wgt:400,600,700|stl:normal,italic/Quetine|stl:normal,italic/">'
+        }
+      ]
+    }
   }
 })
